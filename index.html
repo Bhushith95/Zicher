@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AttendAI · Analytics System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══════════════════════════════════════════════ -->
+<div id="login-page" class="page active">
+  <div class="login-bg">
+    <div class="login-orb"></div>
+    <div class="login-grid"></div>
+  </div>
+  <div class="login-box">
+    <div class="login-brand">
+      <div class="brand-dot"></div>
+      <span>ATTEND<span class="brand-accent">AI</span></span>
+    </div>
+    <div class="login-tagline">AI-Based Attendance Analytics System</div>
+    <div class="login-sub">Jyothy Institute of Technology · AIML Dept · 2026–27</div>
+
+    <div class="login-form">
+      <div class="form-group">
+        <label>USERNAME</label>
+        <input type="text" id="login-username" placeholder="admin / faculty1 / bhushith" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>PASSWORD</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <div id="login-error" class="login-error hidden"></div>
+      <button class="btn-login" onclick="App.login()">
+        <span>AUTHENTICATE</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="login-demo">
+      <div class="demo-title">DEMO CREDENTIALS</div>
+      <div class="demo-chips">
+        <button class="demo-chip" onclick="App.fillDemo('admin','admin123')">Admin · admin123</button>
+        <button class="demo-chip" onclick="App.fillDemo('faculty1','faculty123')">Faculty · faculty123</button>
+        <button class="demo-chip" onclick="App.fillDemo('bhushith','student123')">Student · student123</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP SHELL ════════════════════════════════════════════ -->
+<div id="app-page" class="page hidden">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-dot sm"></div>
+      <span>ATTEND<span class="brand-accent">AI</span></span>
+    </div>
+
+    <div class="sidebar-user" id="sidebar-user">
+      <div class="user-avatar" id="user-avatar">--</div>
+      <div class="user-info">
+        <div class="user-name" id="user-name">Loading...</div>
+        <div class="user-role" id="user-role">--</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <!-- Injected by JS based on role -->
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="live-indicator">
+        <div class="live-dot" id="live-dot"></div>
+        <span id="live-status">CONNECTING</span>
+      </div>
+      <button class="btn-logout" onclick="App.logout()">LOGOUT</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content" id="main-content">
+    <div class="topbar">
+      <button class="hamburger" onclick="App.toggleSidebar()">☰</button>
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-right">
+        <div class="topbar-time" id="topbar-time"></div>
+        <div class="notification-bell" onclick="App.showNotifications()">
+          🔔 <span class="notif-badge hidden" id="notif-badge">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Views -->
+    <div id="view-dashboard" class="view"></div>
+    <div id="view-mark"      class="view hidden"></div>
+    <div id="view-students"  class="view hidden"></div>
+    <div id="view-courses"   class="view hidden"></div>
+    <div id="view-livefeed"  class="view hidden"></div>
+    <div id="view-mystats"   class="view hidden"></div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="App.closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Modal</div>
+      <button class="modal-close" onclick="App.closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
